@@ -20,6 +20,7 @@ class User(db.Model, SerializerMixin):
     collections = db.relationship('Collection', backref = 'user')
 
     #Serialization
+    serialize_only = ('id', 'username', 'password', 'email', 'flashcards', 'collections')
 
 class Flashcard(db.Model, SerializerMixin):
     __tablename__ = 'flashcards'
@@ -36,6 +37,7 @@ class Flashcard(db.Model, SerializerMixin):
     collection_id = db.Column(db.Integer, db.ForeignKey('collections.id'))
 
     #Serialization
+    serialize_only = ('id', 'question', 'answer', 'user_id', 'collection_id')
 
 class Collection(db.Model, SerializerMixin):
     __tablename__ = 'collections'
@@ -51,6 +53,7 @@ class Collection(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     #Serialization
+    serialize_only = ('id', 'name', 'user_id', 'flashcards')
 
 # Models Template
     # class (db.Model, SerializerMixin):
